@@ -6,21 +6,20 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.RectangleCalculator;
+import model.GeometricCalculator;
 
 /**
  *
  * @author James
  */
-@WebServlet(name = "MainController", urlPatterns = {"/RectangleCalculator"})
-public class RectangleController extends HttpServlet {
+@WebServlet(name = "GeometricController", urlPatterns = {"/GeometricController"})
+public class GeometricController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,13 +32,37 @@ public class RectangleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        RectangleCalculator rectangleCalculator = new RectangleCalculator();
-        int length = Integer.parseInt(request.getParameter("length"));
-        int width = Integer.parseInt(request.getParameter("width"));
+        response.setContentType("text/html");
 
-        int result = rectangleCalculator.calculateRectangleArea(length, width);
-        request.setAttribute("totalRectangleArea", result);
+        String length = request.getParameter("length");
+        String width = request.getParameter("width");
+        String radius = request.getParameter("radius");
+        String sideA = request.getParameter("sideA");
+        String sideB = request.getParameter("sideB");
+
+        GeometricCalculator geometricCalculator = new GeometricCalculator();
+
+        //Circle Controller
+        if (radius != null && !radius.isEmpty()) {
+            double circleRadius = Double.parseDouble(request.getParameter("radius"));
+            double circle = geometricCalculator.calculateCircleArea(circleRadius);
+            request.setAttribute("totalArea", circle);
+        }
+        //Rectangle Controller
+        if (length != null && !length.isEmpty() && width != null && !width.isEmpty()) {
+            double rectLength = Double.parseDouble(request.getParameter("length"));
+            double rectWidth = Double.parseDouble(request.getParameter("width"));
+            double rectangle = geometricCalculator.calculateRectangleArea(rectLength, rectWidth);
+            request.setAttribute("totalArea", rectangle);
+        }
+        //Triangle Controller
+        if (sideA != null && !sideA.isEmpty() && sideB != null && !sideB.isEmpty()) {
+            double triSideA = Double.parseDouble(request.getParameter("sideA"));
+            double triSideB = Double.parseDouble(request.getParameter("sideB"));
+            double triangle = geometricCalculator.calculateTriangleArea(triSideA, triSideB);
+            request.setAttribute("totalArea", triangle);
+
+        }
 
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         view.forward(request, response);

@@ -40,7 +40,7 @@ public class CircleController extends HttpServlet {
         double result = circleCalculator.calculateCircleArea(radius);
         request.setAttribute("totalCircleArea", result);
 
-        RequestDispatcher view = request.getRequestDispatcher("/CircleArea.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         view.forward(request, response);
     }
 

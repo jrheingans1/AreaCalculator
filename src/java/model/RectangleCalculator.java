@@ -12,7 +12,7 @@ package model;
 public class RectangleCalculator {
 
     public int calculateRectangleArea(int length, int width) {
-        int totalArea = length * width;
-        return totalArea;
+        int totalRectangleArea = length * width;
+        return totalRectangleArea;
     }
 }
