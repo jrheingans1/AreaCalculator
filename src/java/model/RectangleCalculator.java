@@ -9,9 +9,9 @@ package model;
  *
  * @author James
  */
-public class AreaCalculator {
+public class RectangleCalculator {
 
-    public int calculateArea(int length, int width) {
+    public int calculateRectangleArea(int length, int width) {
         int totalArea = length * width;
         return totalArea;
     }

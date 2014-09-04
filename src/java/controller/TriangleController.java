@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controller;
 
 import java.io.IOException;
@@ -13,14 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AreaCalculator;
+import model.TriangleCalculator;
 
 /**
  *
- * @author James
+ * @author jrheingans1
  */
-@WebServlet(name = "MainController", urlPatterns = {"/AreaCalculator"})
-public class MainController extends HttpServlet {
+@WebServlet(name = "TriangleController", urlPatterns = {"/TriangleCalculator"})
+public class TriangleController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,14 +35,14 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        AreaCalculator areaCalculator = new AreaCalculator();
-        int length = Integer.parseInt(request.getParameter("length"));
-        int width = Integer.parseInt(request.getParameter("width"));
+       TriangleCalculator triangleCalculator = new TriangleCalculator();
+        double sideA = Double.parseDouble(request.getParameter("sideA"));
+        double sideB = Double.parseDouble(request.getParameter("sideB"));
 
-        int result = areaCalculator.calculateArea(length, width);
-        request.setAttribute("totalArea", result);
+        double result = triangleCalculator.calculateTriangleArea(sideA, sideB);
+        request.setAttribute("totalTriangleArea", result);
 
-        RequestDispatcher view = request.getRequestDispatcher("/AreaCalculated.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/TriangleArea.jsp");
         view.forward(request, response);
     }
 
